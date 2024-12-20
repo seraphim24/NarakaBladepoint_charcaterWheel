@@ -1,0 +1,54 @@
+html,
+body {
+  all: unset;
+  height: 100vh;
+  width: 100vw;
+}
+
+#wheel-container {
+  background-color: black;
+  width: 50%;
+  aspect-ratio: 1/1;
+  clip-path: inset(0 0 0 0 round 50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wheel {
+  width: 98%;
+  height: 98%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  position: relative;
+  display: grid;
+  place-items: center;
+  justify-items: start;
+
+  font-size: 1.5em;
+
+  /* Make cicle */
+  clip-path: inset(0 0 0 0 round 50%);
+}
+
+.item {
+  display: grid;
+  grid-area: 1 / -1;
+
+  width: 50%;
+  aspect-ratio: 1 / calc(2 * tan(180deg / var(--items)));
+
+  transform-origin: center right;
+  align-items: center;
+  align-content: center;
+
+  rotate: calc(360deg / var(--items) * calc(var(--index) - 1));
+  background: hsl(calc(360deg / var(--items) * calc(var(--index))), 100%, 75%);
+  background-color: white;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+.item span {
+  padding-left: 1em;
+}
