@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   all: unset;
@@ -5,50 +9,153 @@ body {
   width: 100vw;
 }
 
-#wheel-container {
-  background-color: black;
-  width: 50%;
-  aspect-ratio: 1/1;
-  clip-path: inset(0 0 0 0 round 50%);
-
+body {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#wheel {
-  width: 98%;
-  height: 98%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
+label {
+  text-transform: capitalize;
+}
+
+#page {
+  height: 75%;
+  width: 75%;
+  background-color: #3a3a3a;
+
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-container {
+  border-bottom: white solid 2px;
+  margin-bottom: 1em;
+
+  display: flex;
+}
+
+.radio-btn {
   position: relative;
-  display: grid;
-  place-items: center;
-  justify-items: start;
-
-  font-size: 1.5em;
-
-  /* Make cicle */
-  clip-path: inset(0 0 0 0 round 50%);
+  width: 100%;
+  padding: 1.5em 0.5em;
+  border-right: solid 2px white;
 }
 
-.item {
+.radio-btn:has(input[type="radio"]:checked) {
+  background-color: aliceblue;
+  color: #000;
+}
+
+#page-body {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  flex: 1;
+}
+
+#character-container {
+  width: 25%;
+
   display: grid;
-  grid-area: 1 / -1;
-
-  width: 50%;
-  aspect-ratio: 1 / calc(2 * tan(180deg / var(--items)));
-
-  transform-origin: center right;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: auto;
+  justify-items: center;
   align-items: center;
-  align-content: center;
-
-  rotate: calc(360deg / var(--items) * calc(var(--index) - 1));
-  background: hsl(calc(360deg / var(--items) * calc(var(--index))), 100%, 75%);
-  background-color: white;
-  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
-.item span {
-  padding-left: 1em;
+.checkbox-btn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.checkbox-btn img {
+  filter: grayscale(1);
+  color: gray;
+
+  aspect-ratio: 1/1;
+  width: 100px;
+}
+
+.checkbox-btn:has(input[type="checkbox"]:checked) img {
+  filter: grayscale(0);
+  color: white;
+}
+
+.checkbox-btn img:hover {
+  cursor: pointer;
+}
+
+#character-display-container {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1em;
+}
+
+#display-container {
+  height: 75%;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1em;
+}
+
+.character-display {
+  height: 100%;
+  width: 25%;
+  background-color: #00000077;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.character-display img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.checkbox-btn > label,
+.radio-btn > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-btn:hover > label,
+.radio-btn:hover > label {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.checkbox-btn img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+input {
+  display: none;
+}
+
+button {
+  width: 25%;
+  padding: 1em 0.5em;
 }

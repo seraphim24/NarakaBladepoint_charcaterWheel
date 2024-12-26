@@ -3,83 +3,321 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Roue de la Chance</title>
+    <title>Naraka Character picker</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div id="wheel-container">
-      <div id="wheel">
-        <div class="item">
-          <span>Viper</span>
+    <section id="page">
+      <article id="btn-container">
+        <div class="radio-btn">
+          <label for="solo">solo</label>
+          <input
+            type="radio"
+            name="radio-btn"
+            id="solo"
+            value="1"
+            checked
+            onchange="createdisplay(1)"
+          />
         </div>
-        <div class="item">
-          <span>Temulch</span>
+        <div class="radio-btn">
+          <label for="duo">duo</label>
+          <input
+            type="radio"
+            name="radio-btn"
+            id="duo"
+            value="2"
+            onchange="createdisplay(2)"
+          />
         </div>
-        <div class="item">
-          <span>Matari</span>
+        <div class="radio-btn">
+          <label for="trio">trio</label>
+          <input
+            type="radio"
+            name="radio-btn"
+            id="trio"
+            value="3"
+            onchange="createdisplay(3)"
+          />
         </div>
-        <div class="item">
-          <span>Tarka</span>
+      </article>
+      <article id="page-body">
+        <div id="character-container">
+          <div class="checkbox-btn">
+            <label for="viper"
+              ><img src="./assets/img/icon/cropped-viper.png" alt="Viper Ning"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="viper"
+              value="viper"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="feria"
+              ><img src="./assets/img/icon/cropped-feria.png" alt="feria Shen"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="feria"
+              value="feria"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="tianhai"
+              ><img src="./assets/img/icon/cropped-tianhai.png" alt="tianhai"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="tianhai"
+              value="tianhai"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="ziping"
+              ><img
+                src="./assets/img/icon/cropped-ziping.png"
+                alt="ziping Yin"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="ziping"
+              value="ziping"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="temulch"
+              ><img src="./assets/img/icon/cropped-temulch.png" alt="temulch"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="temulch"
+              value="temulch"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="tarka"
+              ><img src="./assets/img/icon/cropped-" alt="tarka ji"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="tarka"
+              value="tarka"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="kurumi"
+              ><img src="./assets/img/icon/cropped-" alt="kurumi"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="kurumi"
+              value="kurumi"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="yoto"
+              ><img src="./assets/img/icon/cropped-" alt="yoto hime"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="yoto"
+              value="yoto"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="valda"
+              ><img src="./assets/img/icon/cropped-" alt="valda cui"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="valda"
+              value="valda"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="yueshan"
+              ><img src="./assets/img/icon/cropped-" alt="yueshan"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="yueshan"
+              value="yueshan"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="wuchen"
+              ><img src="./assets/img/icon/cropped-" alt="wuchen"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="wuchen"
+              value="wuchen"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="justina"
+              ><img src="./assets/img/icon/cropped-" alt="justina gu"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="justina"
+              value="justina"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="takeda"
+              ><img src="./assets/img/icon/cropped-" alt="takeda nobutaga"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="takeda"
+              value="takeda"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="matari"
+              ><img src="./assets/img/icon/cropped-" alt="matari"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="matari"
+              value="matari"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="akos"
+              ><img src="./assets/img/icon/cropped-" alt="akos hu"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="akos"
+              value="akos"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="zai"
+              ><img src="./assets/img/icon/cropped-" alt="zaï"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="zai"
+              value="zai"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="tessa"
+              ><img src="./assets/img/icon/cropped-" alt="tessa"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="tessa"
+              value="tessa"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="hadi"
+              ><img src="./assets/img/icon/cropped-" alt="hadi"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="hadi"
+              value="hadi"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="shayol"
+              ><img src="./assets/img/icon/cropped-" alt="shayol wei"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="shayol"
+              value="shayol"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="lyam"
+              ><img src="./assets/img/icon/cropped-" alt="lyam liu"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="lyam"
+              value="lyam"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="kylin"
+              ><img src="./assets/img/icon/cropped-" alt="kylin zhang"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="kylin"
+              value="kylin"
+              checked
+            />
+          </div>
+          <div class="checkbox-btn">
+            <label for="cyra"
+              ><img src="./assets/img/icon/cropped-" alt="cyra"
+            /></label>
+            <input
+              type="checkbox"
+              name="checkbox-btn"
+              id="cyra"
+              value="cyra"
+              checked
+            />
+          </div>
         </div>
-        <div class="item">
-          <span>Kurumi</span>
+        <div id="character-display-container">
+          <div id="display-container">
+            <div class="character-display"></div>
+          </div>
+          <button id="roll-btn">Roll</button>
         </div>
-        <div class="item">
-          <span>Tianhai</span>
-        </div>
-        <div class="item">
-          <span>Yoto</span>
-        </div>
-        <div class="item">
-          <span>Valda</span>
-        </div>
-        <div class="item">
-          <span>Yueshan</span>
-        </div>
-        <div class="item">
-          <span>Wushen</span>
-        </div>
-        <div class="item">
-          <span>Justina</span>
-        </div>
-        <div class="item">
-          <span>Takeda</span>
-        </div>
-        <div class="item">
-          <span>Ziping</span>
-        </div>
-        <div class="item">
-          <span>Feria</span>
-        </div>
-        <div class="item">
-          <span>Akos</span>
-        </div>
-        <div class="item">
-          <span>Zai</span>
-        </div>
-        <div class="item">
-          <span>Tessa</span>
-        </div>
-        <div class="item">
-          <span>Hadi</span>
-        </div>
-        <div class="item">
-          <span>Shayol</span>
-        </div>
-        <div class="item">
-          <span>Lyam</span>
-        </div>
-        <div class="item">
-          <span>Kylin</span>
-        </div>
-        <div class="item">
-          <span>Cyra</span>
-        </div>
-      </div>
-    </div>
-    <button id="spin-button-solo">Solo</button>
-    <button id="spin-button-duo">Duo</button>
-    <button id="spin-button-trio">Trio</button>
-    <script src="./assets/js/index.js"></script>
+      </article>
+    </section>
   </body>
+  <script src="./assets/js/index.js"></script>
 </html>

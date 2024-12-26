@@ -1,61 +1,68 @@
-const items = document.querySelectorAll(".item");
-const root = document.querySelector(":root");
-const soloBtn = document.getElementById("spin-button-solo");
-const duoBtn = document.getElementById("spin-button-duo");
-const trioBtn = document.getElementById("spin-button-trio");
-const segment = 360 / items.length;
-const offset = 15;
-let animation;
-let previousEndDegree = 0;
+const btn = document.getElementById("roll-btn");
+const checkboxes = document.querySelectorAll("input[name=checkbox-btn]");
+const radiobuttons = document.querySelectorAll("input[name=radio-btn]");
+const displayContainer = document.getElementById("display-container");
+const charList = [];
+let lastRoll = [];
+let nbChar = 1;
 
-root.style.setProperty("--items", items.length);
+init();
 
-items.forEach((item, index) => {
-  item.style.setProperty("--index", index);
-  // item.style.height = `${360 / items.length}%`;
-});
+function init() {
+  // Add event for all radio btn
+  for (let i = 0; i < radiobuttons.length; i++) {
+    radiobuttons[i].addEventListener(
+      "change",
+      createdisplay,
+      radiobuttons[i].value
+    );
+  }
 
-soloBtn.addEventListener("click", () => {
-  rotateWheel();
-});
-duoBtn.addEventListener("click", () => {
-  rotateWheel();
-  rotateWheel();
-});
-trioBtn.addEventListener("click", () => {
-  rotateWheel();
-  rotateWheel();
-  rotateWheel();
-});
+  editCharList();
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("change", editCharList);
+  }
 
-function rotateWheel() {
-  const randomAdditionalDegrees = Math.random() * 360 + 1800;
-  const newEndDegree = previousEndDegree + randomAdditionalDegrees;
-
-  animation = wheel.animate(
-    [
-      { transform: `rotate(${previousEndDegree}deg)` },
-      { transform: `rotate(${newEndDegree}deg)` },
-    ],
-    {
-      duration: 4000,
-      direction: "normal",
-      easing: "cubic-bezier(0.440, -0.205, 0.000, 1.130)",
-      fill: "forwards",
-      iterations: 1,
-    }
-  );
-
-  previousEndDegree = newEndDegree;
-
-  animation.onfinish = () => {
-    const finalAngle = newEndDegree % 360;
-    const normalizedAngle = normalizeAngle(finalAngle);
-    const winner = Math.floor(((normalizedAngle + offset) % 360) / segment);
-    console.log(wheel.children[winner].textContent.trim());
-  };
+  btn.addEventListener("click", () => roll(nbChar));
 }
 
-const normalizeAngle = (finalAngle) => {
-  return (360 - finalAngle + 90) % 360;
-};
+function createdisplay(nb) {
+  displayContainer.innerHTML = "";
+  nbChar = nb;
+
+  for (let i = 0; i < nb; i++) {
+    displayContainer.innerHTML += '<div class="character-display"></div>';
+  }
+}
+
+function editCharList() {
+  charList.length = 0;
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      charList.push(checkboxes[i].value);
+    }
+  }
+}
+
+function roll(nb) {
+  const tempLastRoll = [];
+  let random;
+  let canPass = false;
+
+  for (let i = 0; i < nb; i++) {
+    while (!canPass) {
+      random = Math.floor(Math.random() * charList.length);
+      if (tempLastRoll.indexOf(random) === -1) {
+        tempLastRoll.push(random);
+        canPass = true;
+      }
+    }
+    canPass = false;
+
+    displayContainer.children[
+      i
+    ].innerHTML = `<img src="./assets/img/full/${charList[random]}.png" alt="${charList[random]}"/>`;
+  }
+
+  lastRoll = [...tempLastRoll];
+}
