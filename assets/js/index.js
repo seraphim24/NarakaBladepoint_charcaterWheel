@@ -9,6 +9,8 @@ let nbChar = 1;
 init();
 
 function init() {
+  editCharList();
+  createdisplay(nbChar);
   // Add event for all radio btn
   for (let i = 0; i < radiobuttons.length; i++) {
     radiobuttons[i].addEventListener(
@@ -18,7 +20,6 @@ function init() {
     );
   }
 
-  editCharList();
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener("change", editCharList);
   }
@@ -31,7 +32,7 @@ function createdisplay(nb) {
   nbChar = nb;
 
   for (let i = 0; i < nb; i++) {
-    displayContainer.innerHTML += '<div class="character-display"></div>';
+    displayContainer.innerHTML += `<div class="wrapper"><div class="character-display">${createCharImg()}${createCharImg()}</div></div>`;
   }
 }
 
@@ -42,6 +43,16 @@ function editCharList() {
       charList.push(checkboxes[i].value);
     }
   }
+}
+
+function createCharImg() {
+  let list = "";
+
+  for (let i = 0; i < charList.length; i++) {
+    list += `<img src="./assets/img/full/${charList[i]}.png" alt="${charList[i]}" data-index="${i}"/>`;
+  }
+
+  return list;
 }
 
 function roll(nb) {
@@ -60,27 +71,57 @@ function roll(nb) {
     }
     canPass = false;
 
-    rollAnimation(5, 100, i, random);
+    rollAnimation(3, i, random);
   }
 
   lastRoll = [...tempLastRoll];
 }
 
-function rollAnimation(time, speed, containerIndex, lastPos) {
-  let random;
-  const interval = setInterval(() => {
-    random = Math.floor(Math.random() * charList.length);
+function rollAnimation(speed, containerIndex, lastPos) {
+  const characters =
+    displayContainer.children[containerIndex].children[0].querySelectorAll(
+      "img"
+    );
 
-    displayContainer.children[
-      containerIndex
-    ].innerHTML = `<img src="./assets/img/full/${charList[random]}.png" alt="${charList[random]}"/>`;
-  }, speed);
+  characters.forEach((character) => {
+    character.style.display = "block";
+    character.style.animation = `slide ${speed}s linear infinite`;
+  });
 
   setTimeout(() => {
-    clearInterval(interval);
-    displayContainer.children[
-      containerIndex
-    ].innerHTML = `<img src="./assets/img/full/${charList[lastPos]}.png" alt="${charList[lastPos]}"/>`;
     btn.disabled = false;
-  }, time * 1000);
+
+    characters.forEach((character) => {
+      character.style.animation = "";
+      character.style.display = "none";
+    });
+
+    displayContainer.children[containerIndex].children[0].children[
+      lastPos
+    ].style.display = "block";
+  }, (speed - 1) * 1000);
 }
+
+// btn.addEventListener("click", () => {
+//   btn.disabled = true; // Désactive le bouton pendant le roulement
+//   const containers = document.querySelectorAll(".character-display");
+
+//   containers.forEach((display, containerIndex) => {
+//     const images = display.querySelectorAll("img");
+//     const totalImages = images.length;
+//     const lastPos = Math.floor(Math.random() * totalImages); // Image finale aléatoire
+
+//     // Appliquer l'animation
+//     display.style.animation = `spin ${2 + containerIndex}s linear infinite`;
+
+//     // Arrêter après un certain temps
+//     setTimeout(() => {
+//       display.style.animation = "none"; // Stoppe l'animation
+//       images.forEach((img) => (img.style.display = "none")); // Cache toutes les images
+//       images[lastPos].style.display = "block"; // Affiche l'image finale
+//       if (containerIndex === containers.length - 1) {
+//         btn.disabled = false; // Réactive le bouton après toutes les animations
+//       }
+//     }, 2000 + containerIndex * 1000); // Délai dépendant du conteneur
+//   });
+// });
