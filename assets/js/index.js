@@ -48,6 +48,7 @@ function roll(nb) {
   const tempLastRoll = [];
   let random;
   let canPass = false;
+  btn.disabled = true;
 
   for (let i = 0; i < nb; i++) {
     while (!canPass) {
@@ -59,10 +60,27 @@ function roll(nb) {
     }
     canPass = false;
 
-    displayContainer.children[
-      i
-    ].innerHTML = `<img src="./assets/img/full/${charList[random]}.png" alt="${charList[random]}"/>`;
+    rollAnimation(5, 100, i, random);
   }
 
   lastRoll = [...tempLastRoll];
+}
+
+function rollAnimation(time, speed, containerIndex, lastPos) {
+  let random;
+  const interval = setInterval(() => {
+    random = Math.floor(Math.random() * charList.length);
+
+    displayContainer.children[
+      containerIndex
+    ].innerHTML = `<img src="./assets/img/full/${charList[random]}.png" alt="${charList[random]}"/>`;
+  }, speed);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    displayContainer.children[
+      containerIndex
+    ].innerHTML = `<img src="./assets/img/full/${charList[lastPos]}.png" alt="${charList[lastPos]}"/>`;
+    btn.disabled = false;
+  }, time * 1000);
 }
