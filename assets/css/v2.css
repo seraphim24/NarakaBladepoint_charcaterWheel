@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html,
+body {
+    all: unset;
+    height: 100vh;
+    width: 100vw;
+
+    overflow-x: hidden;
+
+    background-color: #23272e;
+    color: white;
+}
+
+main {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10em;
+
+}
+
+.icon {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
+
+#sidenav {
+    height: 100%;
+    max-width: fit-content;
+    background-color: white;
+
+
+    &.closed {
+        #sidenav-main {
+            display: none;
+        }
+    }
+
+    #sidenav-header {
+        color: black;
+
+        display: flex;
+        justify-content: end;
+
+        .icon {
+            font-size: 3em;
+
+            transition: all 100ms ease-in-out;
+
+            &:hover {
+                color: rgb(216, 0, 0);
+                cursor: pointer;
+            }
+        }
+    }
+
+    #sidenav-main {
+        width: 100%;
+
+        padding: 1em;
+
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        justify-items: center;
+        gap: 1em;
+
+        img {
+            width: 75px;
+
+            aspect-ratio: 1/1;
+        }
+
+        .disabled {
+            filter: grayscale(0.8);
+        }
+
+        .checkbox-btn {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            img:hover {
+                cursor: pointer;
+            }
+
+            &:has(input:not(:checked)) img {
+                filter: grayscale(0.8);
+            }
+
+            input {
+                display: none;
+            }
+        }
+    }
+
+    #char-selection {
+        
+    }
+}

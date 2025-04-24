@@ -172,13 +172,14 @@ label {
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-2200%);
   }
 }
 
-.checkbox-btn > label,
-.radio-btn > label {
+.checkbox-btn>label,
+.radio-btn>label {
   position: absolute;
   top: 0;
   left: 0;
@@ -192,8 +193,8 @@ label {
   transition: background-color 0.2s ease;
 }
 
-.checkbox-btn:hover > label,
-.radio-btn:hover > label {
+.checkbox-btn:hover>label,
+.radio-btn:hover>label {
   background-color: #c9101080;
 }
 
