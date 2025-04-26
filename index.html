@@ -1,327 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Naraka Character picker</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <section id="page">
-      <article id="btn-container">
-        <div class="radio-btn">
-          <label for="solo">solo</label>
-          <input
-            type="radio"
-            name="radio-btn"
-            id="solo"
-            value="1"
-            checked
-            onchange="createdisplay(1)"
-          />
-        </div>
-        <div class="radio-btn">
-          <label for="duo">duo</label>
-          <input
-            type="radio"
-            name="radio-btn"
-            id="duo"
-            value="2"
-            onchange="createdisplay(2)"
-          />
-        </div>
-        <div class="radio-btn">
-          <label for="trio">trio</label>
-          <input
-            type="radio"
-            name="radio-btn"
-            id="trio"
-            value="3"
-            onchange="createdisplay(3)"
-          />
-        </div>
-      </article>
-      <article id="page-body">
-        <div id="character-container">
-          <div class="checkbox-btn">
-            <label for="viper"
-              ><img src="./assets/img/icon/cropped-viper.png" alt="Viper Ning"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="viper"
-              value="viper"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="feria"
-              ><img src="./assets/img/icon/cropped-feria.png" alt="feria Shen"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="feria"
-              value="feria"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="tianhai"
-              ><img src="./assets/img/icon/cropped-tianhai.png" alt="tianhai"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="tianhai"
-              value="tianhai"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="ziping"
-              ><img src="./assets/img/icon/cropped-ziping.png" alt="ziping Yin"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="ziping"
-              value="ziping"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="temulch"
-              ><img src="./assets/img/icon/cropped-temulch.png" alt="temulch"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="temulch"
-              value="temulch"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="tarka"
-              ><img src="./assets/img/icon/cropped-tarka.png" alt="tarka ji"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="tarka"
-              value="tarka"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="kurumi"
-              ><img src="./assets/img/icon/cropped-kurumi.png" alt="kurumi"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="kurumi"
-              value="kurumi"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="yoto"
-              ><img src="./assets/img/icon/cropped-yoto.png" alt="yoto hime"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="yoto"
-              value="yoto"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="valda"
-              ><img src="./assets/img/icon/cropped-valda.png" alt="valda cui"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="valda"
-              value="valda"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="yueshan"
-              ><img src="./assets/img/icon/cropped-yueshan.png" alt="yueshan"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="yueshan"
-              value="yueshan"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="wuchen"
-              ><img src="./assets/img/icon/cropped-wuchen.png" alt="wuchen"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="wuchen"
-              value="wuchen"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="justina"
-              ><img
-                src="./assets/img/icon/cropped-justina.png"
-                alt="justina gu"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="justina"
-              value="justina"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="takeda"
-              ><img
-                src="./assets/img/icon/cropped-takeda.png"
-                alt="takeda nobutaga"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="takeda"
-              value="takeda"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="matari"
-              ><img src="./assets/img/icon/cropped-matari.png" alt="matari"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="matari"
-              value="matari"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="akos"
-              ><img src="./assets/img/icon/cropped-akos.png" alt="akos hu"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="akos"
-              value="akos"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="zai"
-              ><img src="./assets/img/icon/cropped-zai.png" alt="zaï"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="zai"
-              value="zai"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="tessa"
-              ><img src="./assets/img/icon/cropped-tessa.png" alt="tessa"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="tessa"
-              value="tessa"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="hadi"
-              ><img src="./assets/img/icon/cropped-hadi.png" alt="hadi"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="hadi"
-              value="hadi"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="shayol"
-              ><img src="./assets/img/icon/cropped-shayol.png" alt="shayol wei"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="shayol"
-              value="shayol"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="lyam"
-              ><img src="./assets/img/icon/cropped-lyam.png" alt="lyam liu"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="lyam"
-              value="lyam"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="kylin"
-              ><img src="./assets/img/icon/cropped-kylin.png" alt="kylin zhang"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="kylin"
-              value="kylin"
-              checked
-            />
-          </div>
-          <div class="checkbox-btn">
-            <label for="cyra"
-              ><img src="./assets/img/icon/cropped-cyra.png" alt="cyra"
-            /></label>
-            <input
-              type="checkbox"
-              name="checkbox-btn"
-              id="cyra"
-              value="cyra"
-              checked
-            />
-          </div>
-        </div>
-        <div id="character-display-container">
-          <div id="display-container">
-            <div class="wrapper">
-              <div class="character-display"></div>
-            </div>
-          </div>
-          <button id="roll-btn">Roll</button>
-        </div>
-      </article>
-    </section>
-  </body>
-  <script src="./assets/js/index.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Naraka Character picker</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link rel="stylesheet" href="./assets/css/v2.css" />
+        <style>
+            svg {
+                transform: rotate(0deg);
+                transition: transform 4s ease-out;
+            }
+
+            text {
+                font-size: 12px;
+                fill: white;
+                text-shadow: 1px 1px 3px black;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section id="sidenav">
+                <article id="sidenav-header">
+                    <span class="icon" id="sidenav-icon">close</span>
+                </article>
+                <article id="sidenav-main">
+                    <!-- <div class="checkbox-btn">
+                        <label for="viper">
+                            <img src="./assets/img/icon/cropped-viper.png" alt="Viper Ning" />
+                        </label>
+                        <input type="checkbox" name="checkbox-btn" id="viper" value="viper" checked />
+                    </div> -->
+                </article>
+            </section>
+            <section id="wheel-wrapper">
+                <svg id="wheel" width="750" height="750" viewBox="0 0 400 400"></svg>
+                <div id="arrow"></div>
+            </section>
+            <section id="char-selection">
+                <article id="player-1" class="player">Player 1</article>
+                <article id="player-2" class="player"></article>
+                <article id="player-3" class="player"></article>
+            </section>
+        </main>
+    </body>
+    <script src="./assets/js/v2.js"></script>
+    <script src="./assets/js/wheel.js"></script>
 </html>

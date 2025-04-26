@@ -114,8 +114,40 @@ main {
             }
         }
     }
+}
 
-    #char-selection {
-        
+#wheel-wrapper {
+    position: relative;
+}
+
+#arrow {
+    position: absolute;
+    left: 640px;
+    /* Côté gauche */
+    top: 49.5%;
+    /* Milieu vertical */
+    transform: translateY(-50%);
+    /* Centrage vertical */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        font-family: 'Material Symbols Outlined';
+        content: "arrow_left";
+        font-size: 200px;
+    }
+}
+
+#char-selection {
+    min-width: 300px;
+    font-size: 2em;
+    text-align: center;
+
+    .player {
+        background-image: url("../img/banner.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }
