@@ -86,6 +86,7 @@ function getSelectedCharacters() {
     return [...document.querySelectorAll('input[name="checkbox-btn"]:checked')].map((input) => data[input.value]);
 }
 
+
 // === WHEEL CREATION ===
 function createWheel(characters) {
     const wheel = document.getElementById("wheel");
