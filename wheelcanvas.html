@@ -8,202 +8,63 @@
             body {
                 margin: 0;
                 display: flex;
-                background-color: #725c5c;
+                flex-direction: column;
+                background-color: #2a2a2a;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                min-height: 100vh;
+                font-family: "Arial", sans-serif;
+                color: white;
             }
+
             canvas {
+                background-color: black;
                 border-radius: 50%;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                animation: rotate 5s ease-in-out;
+            }
+
+            #wheel-wrapper {
+                position: relative;
+            }
+
+            #pointer {
+                --size: 60px;
+                --color: #00aeff;
+                --glow-color: rgba(64, 127, 243, 0.7);
+
+                position: absolute;
+                top: calc(-1 * (var(--size) / 3));
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+
+                border-left: calc(var(--size) / 2) solid transparent;
+                border-right: calc(var(--size) / 2) solid transparent;
+                border-top: var(--size) solid var(--color);
+
+                filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color));
+
+                animation: pulse-glow 1.5s ease-in-out infinite;
+            }
+
+            @keyframes pulse-glow {
+                0%,
+                100% {
+                    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 5px var(--glow-color));
+                }
+                50% {
+                    filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color));
+                }
             }
         </style>
     </head>
     <body>
         <section id="wheel-wrapper">
             <canvas id="wheel"></canvas>
+            <div id="pointer"></div>
         </section>
     </body>
-    <script>
-        /** @type {HTMLCanvasElement} */
-        const canvas = document.getElementById("wheel");
-        canvas.height = 750;
-        canvas.width = 750;
-
-        const ctx = canvas.getContext("2d");
-        const center = { x: canvas.width / 2, y: canvas.height / 2 };
-        const radius = canvas.width / 2 - 10;
-        const borderWidth = 5;
-
-        const data = [
-            { label: "Viper", image: "./assets/img/full/lannie.png" },
-            { label: "Feria", image: "./assets/img/full/lannie.png" },
-            { label: "Tianhai", image: "./assets/img/full/lannie.png" },
-            { label: "Ziping", image: "./assets/img/full/lannie.png" },
-            { label: "Temulch", image: "./assets/img/full/lannie.png" },
-            { label: "Tarka", image: "./assets/img/full/lannie.png" },
-            { label: "Kurumi", image: "./assets/img/full/lannie.png" },
-            { label: "Yoto", image: "./assets/img/full/lannie.png" },
-            { label: "Valda", image: "./assets/img/full/lannie.png" },
-            { label: "Yueshan", image: "./assets/img/full/lannie.png" },
-            { label: "Wuchen", image: "./assets/img/full/lannie.png" },
-            { label: "Justina", image: "./assets/img/full/lannie.png" },
-            { label: "Takeda", image: "./assets/img/full/lannie.png" },
-            { label: "Matari", image: "./assets/img/full/lannie.png" },
-            { label: "Akos", image: "./assets/img/full/lannie.png" },
-            { label: "Zaï", image: "./assets/img/full/lannie.png" },
-            { label: "Tessa", image: "./assets/img/full/lannie.png" },
-            { label: "Hadi", image: "./assets/img/full/lannie.png" },
-            { label: "Shayol", image: "./assets/img/full/lannie.png" },
-            { label: "Lyam", image: "./assets/img/full/lannie.png" },
-            { label: "Kylin", image: "./assets/img/full/lannie.png" },
-            { label: "Cyra", image: "./assets/img/full/lannie.png" },
-            { label: "Lannie", image: "./assets/img/full/lannie.png" },
-        ];
-
-        const angleToRadian = (angle) => (angle * Math.PI) / 180;
-        const arcLength = (radius, rad) => radius * rad;
-
-        function createGradient(direction = { x1, y1, x2, y2 }, stops = [{ pos, color }]) {
-            const gradient = ctx.createLinearGradient(direction.x1, direction.y1, direction.x2, direction.y2);
-
-            for (let i = 0; i < stops.length; i++) {
-                gradient.addColorStop(stops[i].pos, stops[i].color);
-            }
-
-            return gradient;
-        }
-
-        function drawText(text, angle, radiusOffset = 0.3) {
-            const chars = text.split("");
-
-            ctx.save();
-            ctx.translate(center.x, center.y);
-            ctx.rotate(angle + Math.PI - Math.PI / 2);
-
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "#fff";
-            ctx.font = "24px sans-serif";
-
-            const textRadius = radius * radiusOffset;
-
-            chars.forEach((char, index) => {
-                ctx.fillText(char, 0, -textRadius - 24 * (chars.length - index));
-            });
-            ctx.restore();
-        }
-
-        function drawImage(img, angle) {
-            const aspectRatio = img.width / img.height;
-            const height = radius;
-            const width = height * aspectRatio;
-
-            ctx.save(); // Save state
-            ctx.translate(center.x, center.y);
-            ctx.rotate(angle + Math.PI - Math.PI / 2);
-            ctx.drawImage(img, -width / 2, -height, width, height);
-            ctx.restore(); // restore
-        }
-
-        function loadImages(data) {
-            return Promise.all(
-                data.map((item) => {
-                    return new Promise((resolve) => {
-                        const img = new Image();
-                        img.src = item.image;
-                        img.onload = () => {
-                            resolve({ ...item, img });
-                        };
-                    });
-                })
-            );
-        }
-
-        function drawWheel(data = []) {
-            const sliceAngle = 360 / data.length;
-
-            // Background
-            ctx.beginPath();
-            ctx.fillStyle = "#111";
-            ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
-            ctx.fill();
-
-            for (let i = 0; i < data.length; i++) {
-                const startAngle = angleToRadian(i * sliceAngle);
-                const endAngle = angleToRadian((i + 1) * sliceAngle);
-                const midAngle = startAngle + (endAngle - startAngle) / 2;
-
-                const sliceCenter = {
-                    x: center.x + radius * Math.cos(midAngle),
-                    y: center.y + radius * Math.sin(midAngle),
-                    centerX: center.x + (radius / 2) * Math.cos(midAngle),
-                    centerY: center.y + (radius / 2) * Math.sin(midAngle),
-                };
-
-                ctx.save();
-
-                ctx.beginPath();
-                ctx.moveTo(center.x, center.y);
-                ctx.arc(center.x, center.y, radius, startAngle, endAngle);
-                ctx.closePath();
-                ctx.clip();
-
-                drawImage(data[i].img, midAngle);
-
-                ctx.fillStyle = createGradient(
-                    {
-                        x1: center.x,
-                        y1: center.y,
-                        x2: sliceCenter.x,
-                        y2: sliceCenter.y,
-                    },
-                    [
-                        { pos: 0.33, color: "rgba(0,0,0,1)" },
-                        { pos: 0.55, color: "rgba(0,0,0,0.8)" },
-                        { pos: 0.77, color: "rgba(0,0,0,0.3)" },
-                        { pos: 1, color: "rgba(255,255,255,0.3)" },
-                    ]
-                );
-
-                ctx.beginPath();
-                ctx.moveTo(center.x, center.y);
-                ctx.arc(center.x, center.y, radius, startAngle, endAngle);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.restore();
-
-                drawText(data[i].label, midAngle);
-
-                ctx.strokeStyle = "#333";
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(center.x, center.y);
-                ctx.lineTo(center.x + radius * Math.cos(startAngle), center.y + radius * Math.sin(startAngle));
-                ctx.stroke();
-                ctx.closePath();
-
-                if (i === data.length - 1) {
-                    ctx.beginPath();
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = "#333";
-                    ctx.moveTo(center.x, center.y);
-                    ctx.lineTo(center.x + radius * Math.cos(endAngle), center.y + radius * Math.sin(endAngle));
-                    ctx.stroke();
-                }
-            }
-
-            // 5. Cercle extérieur
-            ctx.beginPath();
-            ctx.strokeStyle = "#000";
-            ctx.lineWidth = borderWidth;
-            ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-
-        loadImages(data).then((loadedData) => {
-            console.log(loadedData);
-            drawWheel(loadedData);
-        });
-    </script>
+    <script src="./assets/js/index.js"></script>
 </html>
