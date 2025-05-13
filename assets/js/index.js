@@ -40,6 +40,13 @@ class WheelRenderer {
         this.data = data;
         this.center = { x: 0, y: 0 };
         this.radius = 0;
+        this.spinState = {
+            isSpinning: false,
+            rotation: 0,
+            speed: 0,
+            targetSpeed: 0.05,
+            friction: 0.99,
+        };
 
         this.initCanvas();
     }
@@ -127,7 +134,16 @@ class WheelRenderer {
     draw() {
         this.clearCanvas();
         this.drawBackground();
+
+        // Apply rotation transform
+        this.ctx.save();
+        this.ctx.translate(this.center.x, this.center.y);
+        this.ctx.rotate(this.spinState.rotation);
+        this.ctx.translate(-this.center.x, -this.center.y);
+
         this.drawSlices();
+        this.ctx.restore();
+
         this.drawBorder();
     }
 
@@ -242,35 +258,83 @@ class WheelRenderer {
         this.ctx.stroke();
     }
 
-    // TODO spin logic
+    spin() {
+        if (this.spinState.isSpinning) return;
+
+        this.spinState = {
+            isSpinning: true,
+            rotation: this.spinState.rotation,
+            speed: 0.05 + Math.random() * 0.03,
+            targetSpeed: 0,
+            friction: 0.985 + Math.random() * 0.01,
+            spinDuration: 3000 + Math.random() * 2000,
+            startTime: performance.now(),
+        };
+
+        this.animate();
+    }
+
+    animate() {
+        const elapsed = performance.now() - this.spinState.startTime;
+        const progress = Math.min(elapsed / this.spinState.spinDuration, 1);
+
+        const t = progress;
+        const speedFactor = 1 - t * t;
+
+        this.spinState.rotation += this.spinState.speed * speedFactor;
+
+        if (progress < 1) {
+            requestAnimationFrame(() => this.animate());
+        } else {
+            this.spinState.isSpinning = false;
+            this.onSpinEnd();
+        }
+
+        this.draw();
+    }
+
+    onSpinEnd() {
+        const normalizedRotation = ((this.spinState.rotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+        const sliceAngle = (2 * Math.PI) / this.data.length;
+        let selectedIndex = Math.floor((Math.PI * 1.5 - normalizedRotation) / sliceAngle) % this.data.length;
+
+        selectedIndex = (selectedIndex + this.data.length) % this.data.length;
+
+        console.log("Selected:", this.data[selectedIndex].label);
+    }
 }
 
 const wheel = new WheelRenderer("wheel", [
-    { label: "Viper", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Feria", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Tianhai", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Ziping", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Temulch", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Tarka", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Kurumi", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Yoto", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Valda", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Yueshan", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Wuchen", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Justina", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Takeda", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Matari", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Akos", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Zaï", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Tessa", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Hadi", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Shayol", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Lyam", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Kylin", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Cyra", image: "./assets/img/full/Naraka/lannie.png" },
-    { label: "Lannie", image: "./assets/img/full/Naraka/lannie.png" },
+    { label: "Viper", image: "./assets/img/Naraka/viper.png" },
+    { label: "Feria", image: "./assets/img/Naraka/feria.png" },
+    { label: "Tianhai", image: "./assets/img/Naraka/tianhai.png" },
+    { label: "Ziping", image: "./assets/img/Naraka/ziping.png" },
+    { label: "Temulch", image: "./assets/img/Naraka/temulch.png" },
+    { label: "Tarka", image: "./assets/img/Naraka/tarka.png" },
+    { label: "Kurumi", image: "./assets/img/Naraka/kurumi.png" },
+    { label: "Yoto", image: "./assets/img/Naraka/yoto.png" },
+    { label: "Valda", image: "./assets/img/Naraka/valda.png" },
+    { label: "Yueshan", image: "./assets/img/Naraka/yueshan.png" },
+    { label: "Wuchen", image: "./assets/img/Naraka/wushen.png" },
+    { label: "Justina", image: "./assets/img/Naraka/lannie.png" },
+    { label: "Takeda", image: "./assets/img/Naraka/takeda.png" },
+    { label: "Matari", image: "./assets/img/Naraka/matari.png" },
+    { label: "Akos", image: "./assets/img/Naraka/akos.png" },
+    { label: "Zaï", image: "./assets/img/Naraka/zai.png" },
+    { label: "Tessa", image: "./assets/img/Naraka/tessa.png" },
+    { label: "Hadi", image: "./assets/img/Naraka/hadi.png" },
+    { label: "Shayol", image: "./assets/img/Naraka/shayol.png" },
+    { label: "Lyam", image: "./assets/img/Naraka/lyam.png" },
+    { label: "Kylin", image: "./assets/img/Naraka/kylin.png" },
+    { label: "Cyra", image: "./assets/img/Naraka/cyra.png" },
+    { label: "Lannie", image: "./assets/img/Naraka/lannie.png" },
 ]);
 
-wheel.initialize().catch((error) => {
-    console.error("Error initializing wheel:", error);
-});
+wheel
+    .initialize()
+    .then(() => {
+        wheel.canvas.addEventListener("click", () => wheel.spin());
+    })
+    .catch((error) => {
+        console.error("Error initializing wheel:", error);
+    });
