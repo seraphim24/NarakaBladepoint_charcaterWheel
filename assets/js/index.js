@@ -1,4 +1,20 @@
 /** @type {HTMLCanvasElement} */
+const STORAGE_KEY = "character";
+const GAME = "naraka";
+
+async function getData(game, imgType) {
+    try {
+        const response = await fetch(`./assets/json/${game}.json`);
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération du fichier : ${response.statusText}`);
+        }
+        const result = await response.json();
+        return result[imgType]; // Retourner les données pour pouvoir les utiliser ailleurs
+    } catch (error) {
+        console.error("Une erreur est survenue :", error);
+        return []; // Retourner un tableau vide en cas d'erreur
+    }
+}
 class WheelRenderer {
     static CONFIG = {
         RADIUS_OFFSET: 10,
@@ -69,6 +85,11 @@ class WheelRenderer {
         await this.loadImages();
         this.generateSlices();
         this.draw();
+    }
+
+    updateData(newData) {
+        this.data = newData;
+        this.initialize();
     }
 
     async loadImages() {
@@ -298,6 +319,7 @@ class WheelRenderer {
     }
 
     onSpinEnd() {
+        const playerDisplay = document.querySelectorAll(".characterDisplay");
         const normalizedRotation = ((this.spinState.rotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
         const sliceAngle = (2 * Math.PI) / this.data.length;
         let selectedIndex = Math.floor((Math.PI * 1.5 - normalizedRotation) / sliceAngle) % this.data.length;
@@ -305,43 +327,26 @@ class WheelRenderer {
         selectedIndex = (selectedIndex + this.data.length) % this.data.length;
 
         console.log("Selected:", this.data[selectedIndex].label);
+        playerDisplay[0].textContent = this.data[selectedIndex].label;
     }
 }
 
-const wheel = new WheelRenderer("wheel", [
-    { label: "Viper", image: "./assets/img/Naraka/viper.png" },
-    { label: "Feria", image: "./assets/img/Naraka/feria.png" },
-    { label: "Tianhai", image: "./assets/img/Naraka/tianhai.png" },
-    { label: "Ziping", image: "./assets/img/Naraka/ziping.png" },
-    { label: "Temulch", image: "./assets/img/Naraka/temulch.png" },
-    { label: "Tarka", image: "./assets/img/Naraka/tarka.png" },
-    { label: "Kurumi", image: "./assets/img/Naraka/kurumi.png" },
-    { label: "Yoto", image: "./assets/img/Naraka/yoto.png" },
-    { label: "Valda", image: "./assets/img/Naraka/valda.png" },
-    { label: "Yueshan", image: "./assets/img/Naraka/yueshan.png" },
-    { label: "Wuchen", image: "./assets/img/Naraka/wushen.png" },
-    { label: "Justina", image: "./assets/img/Naraka/justina.png" },
-    { label: "Takeda", image: "./assets/img/Naraka/takeda.png" },
-    { label: "Matari", image: "./assets/img/Naraka/matari.png" },
-    { label: "Akos", image: "./assets/img/Naraka/akos.png" },
-    { label: "Zaï", image: "./assets/img/Naraka/zai.png" },
-    { label: "Tessa", image: "./assets/img/Naraka/tessa.png" },
-    { label: "Hadi", image: "./assets/img/Naraka/hadi.png" },
-    { label: "Shayol", image: "./assets/img/Naraka/shayol.png" },
-    { label: "Lyam", image: "./assets/img/Naraka/lyam.png" },
-    { label: "Kylin", image: "./assets/img/Naraka/kylin.png" },
-    { label: "Cyra", image: "./assets/img/Naraka/cyra.png" },
-    { label: "Lannie", image: "./assets/img/Naraka/lannie.png" },
-]);
+const wheel = new WheelRenderer("wheel");
+window.onload = async () => {
+    const data = await getData(GAME, "wheel");
+    const newState = loadFromStorage(data.length);
+    const filteredData = data.filter((_, index) => newState[index]);
+    wheel.updateData(filteredData);
 
-wheel
-    .initialize()
-    .then(() => {
-        wheel.canvas.addEventListener("click", () => wheel.spin());
-    })
-    .catch((error) => {
-        console.error("Error initializing wheel:", error);
-    });
+    wheel
+        .initialize()
+        .then(() => {
+            wheel.canvas.addEventListener("click", () => wheel.spin());
+        })
+        .catch((error) => {
+            console.error("Error initializing wheel:", error);
+        });
+};
 
 window.addEventListener("resize", () => {
     wheel.initCanvas();

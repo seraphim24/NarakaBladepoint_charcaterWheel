@@ -1,24 +1,37 @@
-// document.onload = generateCheckboxButtons("naraka");
 
-async function generateCharacterList(game) {
-    try {
-        const response = await fetch(`./assets/json/${game}.json`);
-        if (!response.ok) {
-            throw new Error(`Erreur lors de la récupération du fichier : ${response.statusText}`);
-        }
-        const result = await response.json();
-        return result; // Retourner les données pour pouvoir les utiliser ailleurs
-    } catch (error) {
-        console.error("Une erreur est survenue :", error);
-        return []; // Retourner un tableau vide en cas d'erreur
+
+document.onload = generateCheckboxButtons(GAME);
+
+function saveToLocalStorage() {
+    const checkboxStates = [...document.querySelectorAll('input[name="checkbox-btn"]')].map((input) => input.checked);
+    localStorage.setItem(`${STORAGE_KEY}-${GAME}`, JSON.stringify(checkboxStates));
+}
+
+function updateLocalStorage(index) {
+    let stored = JSON.parse(localStorage.getItem(`${STORAGE_KEY}-${GAME}`));
+    if (!stored) {
+        stored = Array(defaultLength).fill(true);
+        localStorage.setItem(`${STORAGE_KEY}-${GAME}`, JSON.stringify(stored));
     }
+    stored[index] = !stored[index];
+    localStorage.setItem(`${STORAGE_KEY}-${GAME}`, JSON.stringify(stored));
+}
+
+function loadFromStorage(defaultLength) {
+    let stored = JSON.parse(localStorage.getItem(`${STORAGE_KEY}-${GAME}`));
+    if (!stored) {
+        stored = Array(defaultLength).fill(true);
+        localStorage.setItem(`${STORAGE_KEY}-${GAME}`, JSON.stringify(stored));
+    }
+    return stored;
 }
 
 async function generateCheckboxButtons(game) {
     const container = document.getElementById("sidenav-main"); // Un conteneur où les éléments seront ajoutés
 
     // Récupérer les données des personnages
-    const characters = await generateCharacterList(game);
+    const characters = await getData(game, "icon");
+    const savedStates = loadFromStorage(characters.length);
 
     // Vérifier si des données ont été récupérées avant de continuer
     if (characters.length === 0) {
@@ -50,7 +63,14 @@ async function generateCheckboxButtons(game) {
         input.setAttribute("name", "checkbox-btn");
         input.setAttribute("id", item.label.toLowerCase()); // ID de l'input
         input.setAttribute("value", index); // Valeur de l'input
-        input.setAttribute("checked", true); // Par défaut, coché
+        if (savedStates[index]) input.setAttribute("checked", true);
+        input.addEventListener("change", async () => {
+            updateLocalStorage(index);
+            const data = await getData(GAME, "wheel");
+            const newState = loadFromStorage(data.length);
+            const filteredData = data.filter((_, index) => newState[index]);
+            wheel.updateData(filteredData);
+        });
 
         // Ajout de l'input au div
         checkboxDiv.appendChild(label);
@@ -60,5 +80,3 @@ async function generateCheckboxButtons(game) {
         container.appendChild(checkboxDiv);
     }
 }
-
-generateCheckboxButtons("naraka")

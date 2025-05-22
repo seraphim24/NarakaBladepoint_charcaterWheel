@@ -285,3 +285,46 @@ canvas {
 }
 
 /* Character select */
+#character-selected {
+    width: 25%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    position: relative;
+
+    .player {
+        width: 100%;
+        height: 50px;
+        display: block;
+        display: flex;
+        justify-content: start;
+        background-color: var(--gray-900);
+
+        span:first-child {
+            display: block;
+            padding: 1em;
+            background: var(--surface-color);
+            position: relative;
+
+            &::after {
+                content: "";
+                background-color: var(--main-500);
+                width: 50px;
+                height: 100%;
+                position: absolute;
+                left: 90%;
+                top: 0;
+
+                clip-path: polygon(10% 0%, 25% 0%, 15% 100%, 0% 100%);
+            }
+        }
+
+        .characterDisplay {
+            margin: auto auto;
+            font-weight: 900;
+            text-transform: capitalize;
+            font-size: clamp(var(--font-size-base), 2.5vw, 2rem);
+        }
+    }
+}

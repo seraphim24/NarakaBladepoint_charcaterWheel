@@ -1,33 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Naraka Character picker</title>
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
-        <link rel="stylesheet" href="./assets/css/v2.css" />
-        <style>
-            svg {
-                transform: rotate(0deg);
-                transition: transform 4s ease-out;
-            }
-
-            text {
-                font-size: 12px;
-                fill: white;
-                text-shadow: 1px 1px 3px black;
-                font-weight: bold;
-            }
-        </style>
+        <title>Wheel Test</title>
+        <link rel="stylesheet" href="./assets/css/config.css" />
+        <link rel="stylesheet" href="./assets/css/page.css" />
+        <style></style>
     </head>
     <body>
         <main>
             <section id="sidenav">
                 <article id="sidenav-header">
-                    <span class="icon" id="sidenav-icon">close</span>
+                    <div class="hamburger open" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </article>
                 <article id="sidenav-main">
                     <!-- <div class="checkbox-btn">
@@ -39,17 +29,26 @@
                 </article>
             </section>
             <section id="wheel-wrapper">
-                <svg id="wheel" width="750" height="750" viewBox="0 0 400 400"></svg>
-                <div id="arrow"></div>
+                <div class="wheel-container">
+                    <canvas id="wheel"></canvas>
+                </div>
+                <span id="pointer"></span>
             </section>
-
-            <section id="char-selection">
-                <article id="player-1" class="player">Player 1</article>
-                <article id="player-2" class="player"><!-- Player 2 --></article>
-                <article id="player-3" class="player"><!-- Player 3 --></article>
+            <section id="character-selected">
+                <article id="player-1" class="player">
+                    <span>Player 1</span>
+                    <span id="character-1" class="characterDisplay"></span>
+                </article>
+                <!-- <article id="player-2" class="player"><span>Player 2</span><span id="character-2" class="char">lannie</span></article>
+                <article id="player-3" class="player"><span>Player 3</span><span id="character-2" class="char">lannie</span></article> -->
             </section>
         </main>
     </body>
-    <script src="./assets/js/v2.js"></script>
-    <script src="./assets/js/wheel.js"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/generate_char_list.js"></script>
+    <script>
+        document.getElementById("hamburger").addEventListener("click", function () {
+            this.classList.toggle("open");
+        });
+    </script>
 </html>
