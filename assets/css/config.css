@@ -1,0 +1,315 @@
+:root {
+    /* ========== Color ========== */
+    /* Enable the fn light-dark() */
+    color-scheme: light dark;
+
+    /* Dark Color*/
+    --dark-100: #BCBEC8;
+    --dark-200: #A5A8B6;
+    --dark-300: #7B7F93;
+    --dark-400: #2B2D31;
+    --dark-500: #1C1D22;
+    --dark-600: #17181C;
+    --dark-700: #121317;
+    --dark-800: #101014;
+    --dark-900: #0D0E12;
+
+    /* Light Color */
+    --light-100: #FFFFFF;
+    --light-200: #F8F9FA;
+    --light-300: #F1F2F6;
+    --light-400: #E9ECEF;
+    --light-500: #DEE2E6;
+    --light-600: #CED4DA;
+    --light-700: #E8E9E2;
+    --light-800: #E3E4DC;
+    --light-900: #DCDDD4;
+
+    /* Main / Brand Color */
+    --main-100: #75A6F0;
+    --main-200: #5E97ED;
+    --main-300: #4789EB;
+    --main-400: #307AE8;
+    --main-500: #196BE6;
+    --main-600: #145ECC;
+    --main-700: #104FAD;
+    --main-800: #093F90;
+    --main-900: #063479;
+
+    /* Secondary Color */
+    --secondary-100: #F5F0FF;
+    --secondary-200: #E8E0F2;
+    --secondary-300: #D5C6E8;
+    --secondary-400: #BFA8DB;
+    --secondary-500: #8E6EC3;
+    --secondary-600: #7A5CAD;
+    --secondary-700: #634B8F;
+    --secondary-800: #4D3A71;
+    --secondary-900: #382A52;
+
+    /* Utility Colors */
+    /* Success (Green) */
+    --success-100: #A5E9AD;
+    --success-200: #82E38D;
+    --success-300: #6EDD7B;
+    --success-400: #47D157;
+    --success-500: #29C23B;
+    --success-600: #24A833;
+    --success-700: #1D8B2A;
+    --success-800: #187223;
+    --success-900: #15611D;
+
+    /* Danger (Red) */
+    --danger-100: #F98585;
+    --danger-200: #F47171;
+    --danger-300: #ED5E5E;
+    --danger-400: #DF4C4C;
+    --danger-500: #C81919;
+    --danger-600: #B00707;
+    --danger-700: #960303;
+    --danger-800: #8C0707;
+    --danger-900: #800000;
+
+    /* Warning (Yellow) */
+    --warning-100: #FFF8E6;
+    --warning-200: #FFECB3;
+    --warning-300: #FFE082;
+    --warning-400: #FFD54F;
+    --warning-500: #FFC107;
+    --warning-600: #FFB300;
+    --warning-700: #FFA000;
+    --warning-800: #FF8F00;
+    --warning-900: #FF6F00;
+
+    /* Neutral Gray */
+    --gray-100: #F8F9FA;
+    --gray-200: #E9ECEF;
+    --gray-300: #DEE2E6;
+    --gray-400: #CED4DA;
+    --gray-500: #ADB5BD;
+    --gray-600: #6C757D;
+    --gray-700: #495057;
+    --gray-800: #343A40;
+    --gray-900: #212529;
+
+    /* ========== Backgrounds/Text ========== */
+    --bg-color: light-dark(var(--light-100), var(--dark-900));
+    --text-color: light-dark(var(--dark-900), var(--light-100));
+    --surface-color: light-dark(var(--light-200), var(--dark-700));
+    --border-color: light-dark(var(--gray-300), var(--dark-600));
+    --card-bg: light-dark(var(--light-100), var(--dark-800));
+
+    /* ========== Typography ========== */
+    --font-family: "Inter", sans-serif;
+    --font-size-base: 1rem;
+    --font-weight: 400;
+    --font-weight-bold: 700;
+    --line-height: 1.5;
+
+    /* ========== Button ========== */
+    /* Main */
+    --btn-main-bgcolor: var(--main-500);
+    --btn-main-textcolor: var(--dark-900);
+    --btn-main-hover-bgcolor: var(--main-700);
+    --btn-main-hover-textcolor: var(--light-100);
+    --btn-main-disabled-bgcolor: var(--main-300);
+    --btn-main-disabled-textcolor: var(--dark-400);
+
+    /* Secondary */
+    --btn-secondary-bgcolor: var(--secondary-500);
+    --btn-secondary-textcolor: var(--dark-900);
+    --btn-secondary-hover-bgcolor: var(--secondary-700);
+    --btn-secondary-hover-textcolor: var(--light-100);
+    --btn-secondary-disabled-bgcolor: var(--secondary-300);
+    --btn-secondary-disabled-textcolor: var(--dark-400);
+
+    /* Danger */
+    --btn-danger-bgcolor: var(--danger-400);
+    --btn-danger-textcolor: var(--dark-900);
+    --btn-danger-hover-bgcolor: var(--danger-700);
+    --btn-danger-hover-textcolor: var(--light-100);
+    --btn-danger-disabled-bgcolor: var(--danger-300);
+    --btn-danger-disabled-textcolor: var(--dark-400);
+
+    /* Success */
+    --btn-success-bgcolor: var(--success-400);
+    --btn-success-textcolor: var(--dark-900);
+    --btn-success-hover-bgcolor: var(--success-700);
+    --btn-success-hover-textcolor: var(--light-100);
+    --btn-success-disabled-bgcolor: var(--success-300);
+    --btn-success-disabled-textcolor: var(--dark-400);
+}
+
+/* ========== Manual Override ========== */
+[data-theme="light"] {
+    /* ========== Backgrounds/Text ========== */
+    --bg-color: var(--light-100);
+    --text-color: var(--dark-900);
+    --surface-color: var(--light-200);
+    --border-color: var(--gray-300);
+    --card-bg: var(--light-100);
+}
+
+[data-theme="dark"] {
+    /* ========== Backgrounds/Text ========== */
+    --bg-color: var(--dark-900);
+    --text-color: var(--light-100);
+    --surface-color: var(--dark-700);
+    --border-color: var(--dark-600);
+    --card-bg: var(--dark-800);
+}
+
+/* Resetting margin, padding, and box-sizing for all elements */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    /* Ensures width/height includes padding and border */
+    box-sizing: border-box;
+    /* Improves text readability */
+    line-height: var(--line-height);
+    /* Optimizes text rendering */
+    text-rendering: optimizeLegibility;
+    /* Smooths fonts for WebKit browsers */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* HTML element styling */
+html,
+body {
+    /* Ensures full viewport height */
+    min-height: 100vh;
+    /* For dynamic viewport height */
+    min-height: 100dvh;
+    height: 100%;
+    /* Ensures full width */
+    min-width: 100%;
+    /* Sets font family */
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+    color: var(--text-color);
+
+    /* Adjusts font for better readability */
+    font-optical-sizing: auto;
+}
+
+/* Body styling */
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    /* Allows vertical scrolling */
+    overflow-y: auto;
+}
+
+main {
+    width: 100%;
+    /* Take remaining space between header and footer */
+    flex: 1;
+}
+
+/* Link styling */
+a {
+    /* Removes underline from links */
+    text-decoration: none;
+    /* Inherits color from parent */
+    color: inherit;
+
+    &:hover {
+        color: var(--main-500);
+    }
+}
+
+i {
+    margin-right: 0.2rem;
+}
+
+/* Removes default list styling */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Resetting form elements */
+button,
+input,
+select,
+textarea {
+    /* Removes border */
+    border: none;
+    /* Removes outline on focus */
+    outline: none;
+    /* Removes background */
+    background: none;
+    font-size: var(--font-size-base);
+}
+
+/* Button */
+
+button {
+    background-color: var(--btn-main-bgcolor);
+    padding: 0.5em 1em;
+    border-radius: 0.4rem;
+    color: var(--btn-main-textcolor);
+    font-weight: var(--font-weight-bold);
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+        background-color: var(--btn-main-hover-bgcolor);
+        color: var(--btn-main-hover-textcolor);
+        cursor: pointer;
+    }
+
+    &:disabled {
+        cursor: unset;
+        background-color: var(--btn-main-disabled-bgcolor);
+        color: var(--btn-main-disabled-textcolor);
+        opacity: 0.7;
+    }
+
+    &.secondary {
+        background-color: var(--btn-secondary-bgcolor);
+        color: var(--btn-secondary-textcolor);
+
+        &:hover {
+            background-color: var(--btn-secondary-hover-bgcolor);
+            color: var(--btn-secondary-hover-textcolor);
+        }
+
+        &:disabled {
+            background-color: var(--btn-secondary-disabled-bgcolor);
+            color: var(--btn-secondary-disabled-textcolor);
+        }
+    }
+
+    &.danger {
+        background-color: var(--btn-danger-bgcolor);
+        color: var(--btn-danger-textcolor);
+
+        &:hover {
+            background-color: var(--btn-danger-hover-bgcolor);
+            color: var(--btn-danger-hover-textcolor);
+        }
+
+        &:disabled {
+            background-color: var(--btn-danger-disabled-bgcolor);
+            color: var(--btn-danger-disabled-textcolor);
+        }
+    }
+
+    &.success {
+        background-color: var(--btn-success-bgcolor);
+        color: var(--btn-success-textcolor);
+
+        &:hover {
+            background-color: var(--btn-success-hover-bgcolor);
+            color: var(--btn-success-hover-textcolor);
+        }
+
+        &:disabled {
+            background-color: var(--btn-success-disabled-bgcolor);
+            color: var(--btn-success-disabled-textcolor);
+        }
+    }
+}

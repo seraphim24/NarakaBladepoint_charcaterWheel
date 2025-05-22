@@ -60,3 +60,5 @@ async function generateCheckboxButtons(game) {
         container.appendChild(checkboxDiv);
     }
 }
+
+generateCheckboxButtons("naraka")

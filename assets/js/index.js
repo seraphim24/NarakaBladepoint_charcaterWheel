@@ -1,7 +1,6 @@
 /** @type {HTMLCanvasElement} */
 class WheelRenderer {
     static CONFIG = {
-        CANVAS_SIZE: 750,
         RADIUS_OFFSET: 10,
         BORDER_WIDTH: 5,
         TEXT_STYLE: {
@@ -52,8 +51,13 @@ class WheelRenderer {
     }
 
     initCanvas() {
-        const { CANVAS_SIZE, RADIUS_OFFSET } = WheelRenderer.CONFIG;
-        this.canvas.width = this.canvas.height = CANVAS_SIZE;
+        const { RADIUS_OFFSET } = WheelRenderer.CONFIG;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = this.canvas.getBoundingClientRect();
+
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.height * dpr;
+
         this.center = {
             x: this.canvas.width / 2,
             y: this.canvas.height / 2,
@@ -316,7 +320,7 @@ const wheel = new WheelRenderer("wheel", [
     { label: "Valda", image: "./assets/img/Naraka/valda.png" },
     { label: "Yueshan", image: "./assets/img/Naraka/yueshan.png" },
     { label: "Wuchen", image: "./assets/img/Naraka/wushen.png" },
-    { label: "Justina", image: "./assets/img/Naraka/lannie.png" },
+    { label: "Justina", image: "./assets/img/Naraka/justina.png" },
     { label: "Takeda", image: "./assets/img/Naraka/takeda.png" },
     { label: "Matari", image: "./assets/img/Naraka/matari.png" },
     { label: "Akos", image: "./assets/img/Naraka/akos.png" },
@@ -338,3 +342,9 @@ wheel
     .catch((error) => {
         console.error("Error initializing wheel:", error);
     });
+
+window.addEventListener("resize", () => {
+    wheel.initCanvas();
+    wheel.generateSlices(); // si les angles dépendent de la taille
+    wheel.draw();
+});

@@ -1,70 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Wheel Test</title>
+        <link rel="stylesheet" href="./assets/css/config.css" />
+        <link rel="stylesheet" href="./assets/css/page.css" />
         <style>
-            body {
-                margin: 0;
+            #character-selected {
+                width: 25%;
+                align-self: center;
                 display: flex;
                 flex-direction: column;
-                background-color: #2a2a2a;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                font-family: "Arial", sans-serif;
-                color: white;
-            }
-
-            canvas {
-                background-color: black;
-                border-radius: 50%;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                animation: rotate 5s ease-in-out;
-            }
-
-            #wheel-wrapper {
+                gap: 1em;
                 position: relative;
-            }
 
-            #pointer {
-                --size: 60px;
-                --color: #00aeff;
-                --glow-color: rgba(64, 127, 243, 0.7);
+                .player {
+                    width: 100%;
+                    height: 50px;
+                    display: block;
+                    display: flex;
+                    justify-content: start;
 
-                position: absolute;
-                top: calc(-1 * (var(--size) / 3));
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0;
-                height: 0;
+                    span {
+                        display: block;
+                        padding: 1em;
+                        background: var(--surface-color);
+                        position: relative;
 
-                border-left: calc(var(--size) / 2) solid transparent;
-                border-right: calc(var(--size) / 2) solid transparent;
-                border-top: var(--size) solid var(--color);
+                        &::after {
+                            content: "";
+                            background-color: var(--main-500);
+                            width: 50px;
+                            height: 100%;
+                            position: absolute;
+                            left: 90%;
+                            top: 0;
 
-                filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color));
-
-                animation: pulse-glow 1.5s ease-in-out infinite;
-            }
-
-            @keyframes pulse-glow {
-                0%,
-                100% {
-                    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 5px var(--glow-color));
-                }
-                50% {
-                    filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color));
+                            clip-path: polygon(10% 0%, 25% 0%, 15% 100%, 0% 100%);
+                        }
+                    }
                 }
             }
         </style>
     </head>
     <body>
-        <section id="wheel-wrapper">
-            <canvas id="wheel"></canvas>
-            <div id="pointer"></div>
-        </section>
+        <main>
+            <section id="sidenav">
+                <article id="sidenav-header">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </article>
+                <article id="sidenav-main">
+                    <!-- <div class="checkbox-btn">
+                        <label for="viper">
+                            <img src="./assets/img/icon/cropped-viper.png" alt="Viper Ning" />
+                        </label>
+                        <input type="checkbox" name="checkbox-btn" id="viper" value="viper" checked />
+                    </div> -->
+                </article>
+            </section>
+            <section id="wheel-wrapper">
+                <div class="wheel-container">
+                    <canvas id="wheel"></canvas>
+                </div>
+                <span id="pointer"></span>
+            </section>
+            <section id="character-selected">
+                <article id="player-1" class="player"><span>Player 1</span></article>
+                <article id="player-2" class="player"><span>Player 2</span></article>
+                <article id="player-3" class="player"><span>Player 3</span></article>
+            </section>
+        </main>
     </body>
     <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/generate_char_list.js"></script>
+    <script>
+        document.getElementById("hamburger").addEventListener("click", function () {
+            this.classList.toggle("open");
+        });
+    </script>
 </html>
